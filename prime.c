@@ -1,4 +1,4 @@
-//My program
+// My program
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
@@ -8,6 +8,7 @@ int s(int number);
 bool is_prime(int a);
 int *primes;
 int x;
+int this;
 int main(int argc, char *argv[])
 {
 	if (argc != 2)
@@ -23,7 +24,14 @@ int main(int argc, char *argv[])
 	}
 	primes = (int *)malloc(sizeof(int));
 	primes[0] = 3;
-	printf("%i is ", x);
+	printf("Primes under the sqrt of %i:", x);
+	this = s(x);
+
+	for (int i = 0; i < this; i++)
+	{
+		printf(" %i", primes[i]);
+	}
+	printf("\nNumber of primes checked: %i\n%i is ", this, x);
 	if (is_prime(x) == false)
 	{
 		printf("not ");
@@ -39,7 +47,7 @@ int s(int number)
 		return 1;
 	}
 	int limit = s((int)sqrt(number));
-	for (int odd = primes[number_of_primes - 1] + 2; odd < number + 1; odd = odd + 2)
+	for (int odd = primes[number_of_primes - 1] + 2; odd < sqrt(number) + 1; odd = odd + 2)
 	{
 		for (int prime_index = 0; prime_index < limit; prime_index++)
 		{
@@ -74,7 +82,6 @@ bool is_prime(int a)
 	{
 		return false;
 	}
-	int five = s(a);
 	// Make 2 the first element in the primes list
 	int *tmp = malloc(sizeof(int) * (number_of_primes + 1));
 	tmp[0] = 2;
@@ -84,7 +91,7 @@ bool is_prime(int a)
 	}
 	primes = tmp;
 	tmp = NULL;
-	for (int i = 0; i < five; i++)
+	for (int i = 0; i < this; i++)
 	{
 		if (a % primes[i] == 0)
 		{
