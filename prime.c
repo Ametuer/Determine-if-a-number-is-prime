@@ -24,14 +24,13 @@ int main(int argc, char *argv[])
 	}
 	primes = (int *)malloc(sizeof(int));
 	primes[0] = 3;
-	printf("Primes under the sqrt of %i:", x);
 	this = s(x);
-
-	for (int i = 0; i < this; i++)
-	{
+	/* printf("Primes under the sqrt of %i:", x);
+	 for (int i = 0; i < this; i++)
+	 {
 		printf(" %i", primes[i]);
-	}
-	printf("\nNumber of primes checked: %i\n%i is ", this, x);
+	 } */
+	printf("%i is ", x);
 	if (is_prime(x) == false)
 	{
 		printf("not ");
