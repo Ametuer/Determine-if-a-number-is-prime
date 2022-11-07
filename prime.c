@@ -3,52 +3,27 @@
 #include <math.h>
 #include <stdlib.h>
 #include <stdbool.h>
-int number_of_primes = 1;
-int s(int number);
-bool is_prime(int a);
-int *primes;
-int x;
-int this;
-int main(int argc, char *argv[])
-{
-	if (argc != 2)
-	{
-		printf("You have to do './prime [positive integer]'\n");
-		return 1;
-	}
-	x = atoi(argv[1]);
-	if (x < 0)
-	{
-		printf("Use a positive integer\n");
-		return 2;
-	}
-	primes = (int *)malloc(sizeof(int));
-	primes[0] = 3;
-	this = s(x);
-	/* printf("Primes under the sqrt of %i:", x);
-	 for (int i = 0; i < this; i++)
-	 {
-		printf(" %i", primes[i]);
-	 } */
-	printf("%i is ", x);
-	if (is_prime(x) == false)
-	{
-		printf("not ");
-	}
-	printf("prime\n");
-	free(primes);
-}
-
-int s(int number)
+unsigned int number_of_primes = 1;
+unsigned int s(unsigned int number);
+bool is_prime(unsigned int a);
+unsigned int *primes;
+unsigned int x;
+unsigned int this;
+/*
+	Create a list of prime numbers under the sqrt(of number)
+	Loop thourgh that list to find the prime numbers up to number
+	If a number
+*/
+unsigned int s(unsigned int number)
 {
 	if (number < 5)
 	{
 		return 1;
 	}
-	int limit = s((int)sqrt(number));
-	for (int odd = primes[number_of_primes - 1] + 2; odd < sqrt(number) + 1; odd = odd + 2)
+	unsigned int limit = s(sqrt(number));
+	for (unsigned int odd = primes[number_of_primes - 1] + 2; odd < sqrt(number) + 1; odd = odd + 2)
 	{
-		for (int prime_index = 0; prime_index < limit; prime_index++)
+		for (unsigned int prime_index = 0; prime_index < limit; prime_index++)
 		{
 			if (primes[prime_index])
 			{
@@ -59,8 +34,8 @@ int s(int number)
 			}
 			if (prime_index == limit - 1)
 			{
-				int *tmp;
-				tmp = realloc(primes, sizeof(int) * (number_of_primes + 1));
+				unsigned int *tmp;
+				tmp = realloc(primes, sizeof(unsigned int) * (number_of_primes + 1));
 				primes = tmp;
 				primes[number_of_primes] = odd;
 				number_of_primes++;
@@ -70,8 +45,38 @@ int s(int number)
 	}
 	return number_of_primes;
 }
+unsigned int main(unsigned int argc, char *argv[])
+{
+	printf("%li\n", sizeof(unsigned int));
+	if (argc != 2)
+	{
+		printf("You have to do './prime [positive unsigned integer]'\n");
+		return 1;
+	}
+	x = atoi(argv[1]);
+	if (x < 0)
+	{
+		printf("Use a positive unsigned integer\n");
+		return 2;
+	}
+	primes = (unsigned int *)malloc(sizeof(unsigned int));
+	primes[0] = 3;
+	this = s(x);
+	/* printf("Primes under the sqrt of %u:", x);
+	 for (unsigned int i = 0; i < this; i++)
+	 {
+		printf(" %u", primes[i]);
+	 } */
+	printf("%u is ", x);
+	if (!is_prime(x))
+	{
+		printf("not ");
+	}
+	printf("prime\n");
+	free(primes);
+}
 
-bool is_prime(int a)
+bool is_prime(unsigned int a)
 {
 	if (a == 2)
 	{
@@ -82,18 +87,20 @@ bool is_prime(int a)
 		return false;
 	}
 	// Make 2 the first element in the primes list
-	int *tmp = malloc(sizeof(int) * (number_of_primes + 1));
+	unsigned int *tmp = malloc(sizeof(unsigned int) * (number_of_primes + 1));
 	tmp[0] = 2;
-	for (int i = 0; i < number_of_primes; i++)
+	for (unsigned int i = 0; i < number_of_primes; i++)
 	{
 		tmp[i + 1] = primes[i];
 	}
 	primes = tmp;
 	tmp = NULL;
-	for (int i = 0; i < this; i++)
+	for (unsigned int i = 0; i < this; i++)
 	{
+		//	printf("%u ",primes[i]);
 		if (a % primes[i] == 0)
 		{
+			printf("\n%u\n", primes[i]);
 			return false;
 		}
 	}
